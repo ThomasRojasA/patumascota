@@ -29,6 +29,7 @@ export const api = {
   products: () => request('/products'),
   createProduct: product => request('/products', { method: 'POST', body: JSON.stringify(product) }),
   updateProduct: (id, product) => request(`/products/${id}`, { method: 'PUT', body: JSON.stringify(product) }),
+  sales: () => request('/sales'),
   uploadProductImage: (id, file) => {
     const body = new FormData();
     body.append('image', file);

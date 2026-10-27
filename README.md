@@ -74,6 +74,20 @@ npm test
 npm run build
 ```
 
+## Aplicación de Windows
+
+El cliente de escritorio se encuentra en `windows-app`. Abre el panel publicado en Render y utiliza la misma API y autenticación que la versión web. Requiere internet; no almacena datos localmente. Incluye consulta de ventas y el cotizador temporal existente.
+
+Para ejecutarlo en desarrollo o generar el instalador x64:
+
+```bash
+npm install --prefix windows-app
+npm run desktop:dev
+npm run desktop:build
+```
+
+El instalador `.exe` queda en `windows-app/dist`. Consulta [windows-app/README.md](./windows-app/README.md) para los detalles de instalación y operación.
+
 ## Funciones
 - Catálogo público con búsqueda, filtros, stock y precios.
 - Administración protegida con alta, edición y archivo de productos.

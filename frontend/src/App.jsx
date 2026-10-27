@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import {
   PawPrint, Search, Filter, Package, Plus, Edit3, Archive, X, CheckCircle2,
-  AlertTriangle, LogIn, LogOut, RefreshCw, ShoppingCart, Printer, Copy, Minus
+  AlertTriangle, LogIn, LogOut, RefreshCw, ShoppingCart, Printer, Copy, Minus, Receipt
 } from 'lucide-react';
 import { api } from './api.js';
 
@@ -17,7 +17,10 @@ export default function App() {
   const [page, setPage] = useState('catalog');
   const [adminSection, setAdminSection] = useState('inventory');
   const [products, setProducts] = useState([]);
+  const [sales, setSales] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [salesLoading, setSalesLoading] = useState(false);
+  const [salesError, setSalesError] = useState('');
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
   const [notice, setNotice] = useState('');
@@ -42,6 +45,19 @@ export default function App() {
       setError(`${requestError.message} Verifica que el backend esté iniciado.`);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const refreshSales = async () => {
+    setSalesLoading(true);
+    setSalesError('');
+    try {
+      setSales(await api.sales());
+    } catch (requestError) {
+      setSalesError(requestError.message);
+      if (requestError.status === 401) logout();
+    } finally {
+      setSalesLoading(false);
     }
   };
 
@@ -329,6 +345,9 @@ export default function App() {
                 <ShoppingCart size={17} /> Cotizaciones
                 {cart.length > 0 && <span className="nav-count">{cart.length}</span>}
               </button>
+              <button className={adminSection === 'sales' ? 'active' : ''} onClick={() => { setAdminSection('sales'); refreshSales(); }}>
+                <Receipt size={17} /> Ventas
+              </button>
             </nav>
 
             {adminSection === 'inventory' && (
@@ -423,6 +442,40 @@ export default function App() {
                   <p className="quote-disclaimer">Preparar una cotización no descuenta productos del inventario.</p>
                 </section>
               </div>
+            )}
+
+            {adminSection === 'sales' && (
+              <section className="panel">
+                <div className="panel-heading">
+                  <div><h2>Ventas registradas</h2><p>Últimas ventas guardadas desde la API. Las cotizaciones temporales no aparecen aquí.</p></div>
+                  <button className="btn secondary" onClick={refreshSales} disabled={salesLoading}>
+                    <RefreshCw size={16} /> {salesLoading ? 'Actualizando…' : 'Actualizar'}
+                  </button>
+                </div>
+                {salesError ? (
+                  <div className="empty-state"><AlertTriangle size={28} /><p>{salesError}</p></div>
+                ) : salesLoading && !sales.length ? (
+                  <div className="empty-state"><Package size={28} /><p>Cargando ventas…</p></div>
+                ) : sales.length ? (
+                  <div className="table-wrap">
+                    <table>
+                      <thead><tr><th>Fecha</th><th>Cliente</th><th>Detalle</th><th>Total</th></tr></thead>
+                      <tbody>
+                        {sales.map(sale => (
+                          <tr key={sale.id}>
+                            <td>{new Date(sale.createdAt).toLocaleString('es-CL')}</td>
+                            <td className="strong">{sale.customer}</td>
+                            <td>{(sale.SaleItems || []).map(item => `${item.productName} × ${item.quantity}`).join(', ')}</td>
+                            <td className="strong">{money(sale.total)}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                ) : (
+                  <div className="empty-state"><Receipt size={28} /><p>Aún no hay ventas registradas.</p></div>
+                )}
+              </section>
             )}
           </>
         )}

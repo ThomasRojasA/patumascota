@@ -7,7 +7,9 @@
     "install:all": "npm install && npm install --prefix backend && npm install --prefix frontend",
     "build": "npm run build --prefix frontend",
     "test": "npm test --prefix backend",
-    "start": "npm start --prefix backend"
+    "start": "npm start --prefix backend",
+    "desktop:dev": "npm start --prefix windows-app",
+    "desktop:build": "npm run dist --prefix windows-app"
   },
   "devDependencies": {
     "concurrently": "^9.1.2"
