@@ -234,9 +234,9 @@ export default function App() {
             <button className="btn header-btn" onClick={logout}><LogOut size={16} /> Cerrar sesión</button>
           ) : page === 'login' ? (
             <button className="btn header-btn" onClick={() => setPage('catalog')}>Volver al catálogo</button>
-          ) : !showcaseMode ? (
+          ) : (
             <button className="btn header-btn" onClick={openAdmin}><LogIn size={16} /> Administrador</button>
-          ) : null}
+          )}
         </div>
       </header>
 
