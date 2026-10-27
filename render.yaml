@@ -1,0 +1,26 @@
+services:
+  - type: web
+    name: pa-la-mascota
+    runtime: node
+    plan: free
+    region: ohio
+    buildCommand: npm ci --prefix backend --omit=dev --omit=optional && npm ci --prefix frontend && npm run build --prefix frontend
+    startCommand: npm start --prefix backend
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: TRUST_PROXY
+        value: "1"
+      - key: DB_URL
+        sync: false
+      - key: DB_SSL
+        value: "true"
+      - key: ADMIN_PASSWORD
+        generateValue: true
+      - key: CLOUDINARY_CLOUD_NAME
+        sync: false
+      - key: CLOUDINARY_API_KEY
+        sync: false
+      - key: CLOUDINARY_API_SECRET
+        sync: false
