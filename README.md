@@ -12,8 +12,8 @@ Aplicación full-stack para catálogo público, administración de inventario y 
 2. Sube el código del proyecto a un repositorio GitHub. No subas `.env`, `node_modules`, `backend/petshop.sqlite` ni `frontend/dist`.
 3. En Render, crea un **Blueprint** y conecta ese repositorio. Render detectará `render.yaml` y propondrá crear el servicio web.
 4. Antes de crear el servicio, configura `DB_URL` con la cadena de conexión PostgreSQL. Render generará `ADMIN_PASSWORD`; guarda esa clave en un gestor seguro para compartir el acceso administrativo con tu cliente por un canal privado.
-5. Si el cliente debe probar carga de imágenes, configura en Render las tres variables privadas de Cloudinary: `CLOUDINARY_CLOUD_NAME`, `CLOUDINARY_API_KEY` y `CLOUDINARY_API_SECRET`.
-6. Despliega. La aplicación crea las tablas y carga productos de muestra cuando la base está vacía. La URL pública y el estado del servicio aparecen en Render. Comprueba `/api/health`.
+5. Despliega. La aplicación crea las tablas y carga productos de muestra cuando la base está vacía. La URL pública y el estado del servicio aparecen en Render. Comprueba `/api/health`.
+6. Para probar carga de imágenes, agrega luego en **Render → Environment** las variables privadas `CLOUDINARY_CLOUD_NAME`, `CLOUDINARY_API_KEY` y `CLOUDINARY_API_SECRET`.
 
 No se deben migrar datos reales de `backend/petshop.sqlite` a una demo para clientes. Empieza con la base PostgreSQL vacía para que se cargue el inventario de ejemplo.
 
