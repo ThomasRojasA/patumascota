@@ -1,4 +1,4 @@
-const privateField = /password|token|secret|authorization|cookie|customer|email|phone|address|notes|image|csrf|api.?key/i;
+const privateField = /password|token|secret|authorization|cookie|customer|email|phone|address|notes|image|csrf|api.?key|apikey/i;
 
 function sanitizeValue(value, key = '', depth = 0) {
   if (privateField.test(key)) return '[REDACTED]';

@@ -11,6 +11,7 @@ test('sanitizes credentials and customer data from API responses', () => {
     response: {
       csrfToken: 'csrf-value',
       password: 'password-value',
+      apiKey: 'api-key-value',
       customer: 'Customer name',
       notes: 'Private customer note',
       products: [{ id: 1, image: 'https://res.cloudinary.com/private-image' }]
@@ -21,6 +22,7 @@ test('sanitizes credentials and customer data from API responses', () => {
   assert.equal(event.method, 'POST');
   assert.equal(event.response.csrfToken, '[REDACTED]');
   assert.equal(event.response.password, '[REDACTED]');
+  assert.equal(event.response.apiKey, '[REDACTED]');
   assert.equal(event.response.customer, '[REDACTED]');
   assert.equal(event.response.notes, '[REDACTED]');
   assert.equal(event.response.products[0].image, '[REDACTED]');
