@@ -88,7 +88,7 @@ router.post('/:id/image', requireAdmin, (req, res, next) => {
 
     const { CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY, CLOUDINARY_API_SECRET } = process.env;
     if (!CLOUDINARY_CLOUD_NAME || !CLOUDINARY_API_KEY || !CLOUDINARY_API_SECRET) {
-      return res.status(503).json({ error: 'Configura CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY y CLOUDINARY_API_SECRET en backend/.env.' });
+      return res.status(503).json({ error: 'Configura CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY y CLOUDINARY_API_SECRET en Render → Environment.' });
     }
 
     cloudinary.config({
