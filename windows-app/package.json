@@ -8,7 +8,8 @@
   "main": "main.js",
   "scripts": {
     "start": "electron .",
-    "dist": "electron-builder --win nsis"
+    "dist": "electron-builder --win nsis",
+    "test": "node --test"
   },
   "devDependencies": {
     "electron": "^45.0.0",
@@ -22,6 +23,8 @@
     },
     "files": [
       "main.js",
+      "preload.cjs",
+      "log-utils.js",
       "package.json"
     ],
     "win": {

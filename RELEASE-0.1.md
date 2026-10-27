@@ -68,7 +68,7 @@ En desarrollo local, si `DB_URL` está vacía, el backend usa SQLite en `backend
 
 ### Aplicación de escritorio para Windows
 
-El proyecto incluye un cliente x64 para Windows en `windows-app`. La app abre el sitio HTTPS publicado en Render dentro de una ventana Electron aislada, por lo que reutiliza el login existente, la API y el almacenamiento centralizado. Requiere internet; no guarda datos ni secretos localmente. El panel incluye consulta de ventas registradas, además del catálogo, inventario e imágenes; el cotizador sigue siendo temporal y no descuenta stock. Para generar el instalador, consulta [windows-app/README.md](./windows-app/README.md). La distribución actual no está firmada con un certificado de editor.
+El proyecto incluye un cliente x64 para Windows en `windows-app`. La app abre el sitio HTTPS publicado en Render dentro de una ventana Electron aislada, por lo que reutiliza el login existente, la API y el almacenamiento centralizado. Requiere internet; no guarda datos ni secretos localmente. El panel incluye consulta de ventas registradas, además del catálogo, inventario e imágenes; el cotizador sigue siendo temporal y no descuenta stock. Registra las llamadas API hechas desde esa app en `%APPDATA%\Pa la mascota\logs\api.log`; el log sanea campos sensibles, rota al alcanzar 5 MB y puede abrirse desde el botón **Abrir registros**. No registra el tráfico de visitantes externos ni sustituye los logs de Render. Para generar el instalador, consulta [windows-app/README.md](./windows-app/README.md). La distribución actual no está firmada con un certificado de editor.
 
 ## 5. Datos y comportamiento del inventario
 

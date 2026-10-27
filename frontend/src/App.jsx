@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import {
   PawPrint, Search, Filter, Package, Plus, Edit3, Archive, X, CheckCircle2,
-  AlertTriangle, LogIn, LogOut, RefreshCw, ShoppingCart, Printer, Copy, Minus, Receipt
+  AlertTriangle, LogIn, LogOut, RefreshCw, ShoppingCart, Printer, Copy, Minus, Receipt, FileText
 } from 'lucide-react';
 import { api } from './api.js';
 
@@ -62,6 +62,13 @@ export default function App() {
   };
 
   useEffect(() => { refreshProducts(); }, []);
+  useEffect(() => {
+    const handleLogError = event => {
+      setError(`No se pudo escribir el registro local de la app: ${event.detail}`);
+    };
+    window.addEventListener('desktop-log-error', handleLogError);
+    return () => window.removeEventListener('desktop-log-error', handleLogError);
+  }, []);
   useEffect(() => {
     if (!notice) return undefined;
     const timer = setTimeout(() => setNotice(''), 3500);
@@ -246,6 +253,16 @@ export default function App() {
           <span><strong>Pa la <em>mascota</em></strong><small>Productos para sus mejores amigos</small></span>
         </button>
         <div className="top-actions">
+          {window.palaMascotaDesktop && (
+            <button
+              className="btn header-btn"
+              onClick={() => window.palaMascotaDesktop.openLogsFolder().catch(logError => {
+                setError(`No se pudo abrir la carpeta de registros: ${logError.message}`);
+              })}
+            >
+              <FileText size={16} /> Abrir registros
+            </button>
+          )}
           {page === 'admin' ? (
             <button className="btn header-btn" onClick={logout}><LogOut size={16} /> Cerrar sesión</button>
           ) : page === 'login' ? (

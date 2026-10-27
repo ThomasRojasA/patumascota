@@ -87,6 +87,7 @@ npm run desktop:build
 ```
 
 El instalador `.exe` queda en `windows-app/dist`. Consulta [windows-app/README.md](./windows-app/README.md) para los detalles de instalación y operación.
+La app guarda un log local de sus llamadas a la API en `%APPDATA%\Pa la mascota\logs\api.log`; el botón **Abrir registros** muestra la carpeta.
 
 ## Funciones
 - Catálogo público con búsqueda, filtros, stock y precios.
